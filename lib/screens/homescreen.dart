@@ -7,6 +7,9 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
+enum SkillType { photoshop, adobexd, illustotur, aftereffect, lightroom }
+SkillType selectSkill = SkillType.photoshop;
+
 class _HomeScreenState extends State<HomeScreen> {
   bool isSelected = false;
   @override
@@ -121,8 +124,118 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
+            Wrap(
+              alignment: WrapAlignment.center,
+              spacing: 10,
+              runSpacing: 10,
+              children: [
+                SkillItem(
+                  imageAddress: "assets/images/app_icon_01.png",
+                  titleImage: "Photoshop",
+                  isActive: selectSkill == SkillType.photoshop,
+                  onTap: () {
+                    setState(() {
+                      selectSkill = SkillType.photoshop;
+                    });
+                  },
+                  shadowColor: Colors.blue.shade100,
+                ),
+                SkillItem(
+                  imageAddress: "assets/images/app_icon_05.png",
+                  titleImage: "Adobexd",
+                  isActive: selectSkill == SkillType.adobexd,
+                  onTap: () {
+                    setState(() {
+                      selectSkill = SkillType.adobexd;
+                    });
+                  },
+                  shadowColor: Colors.pink.shade200,
+                ),
+                SkillItem(
+                  imageAddress: "assets/images/app_icon_04.png",
+                  titleImage: "Illustotur",
+                  isActive: selectSkill == SkillType.illustotur,
+                  onTap: () {
+                    setState(() {
+                      selectSkill = SkillType.illustotur;
+                    });
+                  },
+                  shadowColor: Colors.orange.shade200,
+                ),
+                SkillItem(
+                  imageAddress: "assets/images/app_icon_03.png",
+                  titleImage: "Aftereffect",
+                  isActive: selectSkill == SkillType.aftereffect,
+                  onTap: () {
+                    setState(() {
+                      selectSkill = SkillType.aftereffect;
+                    });
+                  },
+                  shadowColor: Colors.blue.shade200,
+                ),
+                SkillItem(
+                  imageAddress: "assets/images/app_icon_02.png",
+                  titleImage: "Lightroom",
+                  isActive: selectSkill == SkillType.lightroom,
+                  onTap: () {
+                    setState(() {
+                      selectSkill = SkillType.lightroom;
+                    });
+                  },
+                  shadowColor: Colors.green.shade200,
+                ),
+              ],
+            )
           ]),
         ),
+      ),
+    );
+  }
+}
+
+class SkillItem extends StatelessWidget {
+  final String imageAddress;
+  final String titleImage;
+  final bool isActive;
+  final Function() onTap;
+  final Color shadowColor;
+
+  const SkillItem(
+      {required this.imageAddress,
+      required this.titleImage,
+      required this.isActive,
+      required this.onTap,
+      required this.shadowColor});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      borderRadius: BorderRadius.circular(8),
+      onTap: onTap,
+      child: Container(
+        height: 110,
+        width: 110,
+        decoration: isActive
+            ? BoxDecoration(
+                borderRadius: BorderRadius.circular(8), color: Colors.white10)
+            : null,
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Container(
+            decoration: isActive
+                ? BoxDecoration(
+                    boxShadow: [BoxShadow(blurRadius: 15, color: shadowColor)],
+                  )
+                : null,
+            child: Image.asset(
+              imageAddress,
+              width: 60,
+            ),
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          Text(titleImage)
+        ]),
       ),
     );
   }
